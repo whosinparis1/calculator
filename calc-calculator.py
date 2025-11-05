@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import time
 import numpy as np
 from sympy import symbols, diff, integrate, limit, sympify, oo
 from sympy.utilities.lambdify import lambdify
@@ -11,7 +12,7 @@ import re
 x = symbols('x')
 
 # Print a welcome message
-print("welcome brother")
+print("welcome")
 
 while True:
 
@@ -21,6 +22,7 @@ while True:
     print("graph")
     print("trig calculator")
     print("basic math")
+    print("exit")
 
     choice = input("1, 2, 3, 4, 5, 6, 7: ")
 
@@ -114,7 +116,7 @@ while True:
             print(f"Hypotenuse = {hypotenuse:.4f}")
 
 
-       elif choice == '6':
+    elif choice == '6':
         print("Basic Math Calculator")
         num1 = float(input("Enter first number: "))
         operation = input("Enter operation (+, -, *, /, **, sqrt): ")
@@ -142,4 +144,11 @@ while True:
         print(f"Result: {result}")
 
 
-        
+    elif choice == '7':
+        print("thanks for checking this out")
+        time.sleep(3)
+        print("ps this isnt a virus why did you think i uploaded this to github")
+        time.sleep(3)
+        print("paste it into chatgpt it will says its a calculator")
+        time.sleep(3)
+        break
