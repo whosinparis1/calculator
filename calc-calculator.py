@@ -5,7 +5,7 @@ from sympy.utilities.lambdify import lambdify
 import math
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
-
+import re
 
 # Create our mathematical variable x
 x = symbols('x')
@@ -20,13 +20,22 @@ while True:
     print("integrate")
     print("graph")
     print("trig calculator")
-    print("exit")
+    print("basic math")
 
-    choice = input("1, 2, 3, 4, 5, 6: ")
+    choice = input("1, 2, 3, 4, 5, 6, 7: ")
 
     if choice == '1':
-        question = input("Enter problem to find the derivative of")
-        sympify(question)
+        question = input("Enter problem to find the derivative of: ")
+       
+        if '=' in question:
+            question = question.split('=')[1].strip()
+        
+        # Convert math notation to Python notation
+        question = question.replace('^', '**')
+        question = question.replace(' ', '')  # Remove spaces
+        
+        question = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', question)
+        
         math_expression = sympify(question)
         derivative_result = diff(math_expression, x)
         print("the derivative is:", derivative_result)
@@ -38,34 +47,25 @@ while True:
         if definite_or_indefinte == 'indefinte':
             question_integral = input("Enter the problem you would like to integrate: ")
             math_expression_integral = sympify(question_integral)
-            integral_result = (math_expression_integral, x)
-            print("The integral result is:", integral_result)
-
             
-
             integral_result = integrate(math_expression_integral, x)
             print("The integral is:", integral_result)
 
-
         elif definite_or_indefinte == 'definite':
             question_integral_definite = input("Enter the definite integral you would like to integrate: ")
-            math_expression_integral_definite = sympify(question_integral_definite) #possibly fix
-            integral_result_definite = integrate(math_expression_integral_definite, x) #this too
+            math_expression_integral_definite = sympify(question_integral_definite)
             lower = float(input("Enter lower limit: "))
             upper = float(input("Enter upper limit: "))
     
-        integral_result_definite = integrate(math_expression_integral_definite, (x, lower, upper))
-
-        print("the integral is:",integral_result_definite)
+            integral_result_definite = integrate(math_expression_integral_definite, (x, lower, upper))
+            print("the integral is:", integral_result_definite)
 
     elif choice == '3':
         limit_function = input("enter the function for the limit: ")
         math_expression_limits = sympify(limit_function)
         limit_asker = input("what value is x approaching: ")
-        limit_result =  limit(math_expression_limits, x, limit_asker)
+        limit_result = limit(math_expression_limits, x, limit_asker)
         print("the limit is:", limit_result)
-
-
 
     
     elif choice == '4':
@@ -91,7 +91,7 @@ while True:
 
     elif choice == '5':
         print("1. degress to radians")
-        print("2. solve a triangle")
+        print("2. radians to degrees")
         print("3. solve right angle triangle ")
         
         trig_choice = input("choose 1-3: ")
@@ -102,12 +102,44 @@ while True:
             print(f"{degrees}° = {radians:.4f} radians")
 
         elif trig_choice == '2':
-            print("coming soon")
+            radians = float(input("enter radians: "))
+            degrees = radians * (180 / math.pi)
+            print(f"{radians} radians = {degrees:.4f}°")
 
         elif trig_choice == '3':
-            print("coming soon")
+            print("Right triangle solver - finding hypotenuse")
+            adjacent = float(input("Enter adjacent side: "))
+            opposite = float(input("Enter opposite side: "))
+            hypotenuse = math.sqrt(adjacent**2 + opposite**2)
+            print(f"Hypotenuse = {hypotenuse:.4f}")
 
-    elif choice == '6':
-        print("ill add the features later for now goodbye")
 
-        break
+       elif choice == '6':
+        print("Basic Math Calculator")
+        num1 = float(input("Enter first number: "))
+        operation = input("Enter operation (+, -, *, /, **, sqrt): ")
+        
+        if operation == '+':
+            num2 = float(input("Enter second number: "))
+            result = num1 + num2
+        elif operation == '-':
+            num2 = float(input("Enter second number: "))
+            result = num1 - num2
+        elif operation == '*':
+            num2 = float(input("Enter second number: "))
+            result = num1 * num2
+        elif operation == '/':
+            num2 = float(input("Enter second number: "))
+            result = num1 / num2
+        elif operation == '**':
+            num2 = float(input("Enter power: "))
+            result = num1 ** num2
+        elif operation == 'sqrt':
+            result = math.sqrt(num1)
+        else:
+            result = "Invalid operation"
+        
+        print(f"Result: {result}")
+
+
+        
