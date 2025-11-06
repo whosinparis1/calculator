@@ -23,7 +23,6 @@ while True:
     print("trig calculator")
     print("basic math")
     print("exit")
-
     choice = input("1, 2, 3, 4, 5, 6, 7: ")
 
     if choice == '1':
@@ -95,8 +94,11 @@ while True:
         print("1. degress to radians")
         print("2. radians to degrees")
         print("3. solve right angle triangle ")
+        print("4. trig function calculator")
+        print("5. descent rate calculator")
+        print("6. Vref speed calculator")
         
-        trig_choice = input("choose 1-3: ")
+        trig_choice = input("choose 1-6: ")
 
         if trig_choice == '1':
             degrees = float(input("enter degrees: "))
@@ -114,6 +116,39 @@ while True:
             opposite = float(input("Enter opposite side: "))
             hypotenuse = math.sqrt(adjacent**2 + opposite**2)
             print(f"Hypotenuse = {hypotenuse:.4f}")
+
+        elif trig_choice == '4':
+           func = input("enter a trig function (sin, cos, tan): ")
+           angle = float(input("enter angle in degrees: "))
+           radians = angle * (math.pi / 180)
+
+           if func == 'sin':
+            result = math.sin(radians)
+           elif func == 'cos':
+            result = math.cos(radians)
+           elif func == 'tan':
+               result = math.tan(radians)
+
+               print(f"{func}({angle}°) = {result:.4f}")
+
+
+        elif trig_choice == '5':
+            print("descent rate 3° glideslope")
+            groundspeed = float(input("Enter groundspeed (knots): "))
+            descent_rate = groundspeed * 100 * math.tan(3 * math.pi / 180)
+            print(f"Descent rate for {groundspeed} knots = {descent_rate:.1f} ft/min")
+            time.sleep(3)
+
+        elif trig_choice == '6':
+            print("Vref calculator")
+            stallspeed = float(input("enter your stall speed: "))
+            headwind = float(input("enter the headwind: "))
+            gust = float(input("What is the gust factor: "))
+            result = 1.3 * stallspeed + (headwind / 2) + gust
+            print("your vref speed is: ", result)
+            time.sleep(3)
+
+
 
 
     elif choice == '6':
@@ -145,10 +180,8 @@ while True:
 
 
     elif choice == '7':
-        print("thanks for checking this out")
-        time.sleep(3)
-        print("ps this isnt a virus why did you think i uploaded this to github")
-        time.sleep(3)
-        print("paste it into chatgpt it will says its a calculator")
-        time.sleep(3)
-        break
+        print("bye")
+    time.sleep(3)
+    print("this isnt a virus") #there is a issue here
+    time.sleep(3)
+    break
