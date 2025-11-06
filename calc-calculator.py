@@ -7,6 +7,12 @@ import math
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 import re
+from sympy import init_printing
+from sympy import pprint
+
+init_printing(use_unicode=True)
+
+
 
 # Create our mathematical variable x
 x = symbols('x')
@@ -22,8 +28,10 @@ while True:
     print("graph")
     print("trig calculator")
     print("basic math")
-    print("exit")
-    choice = input("1, 2, 3, 4, 5, 6, 7: ")
+    print("Vref speed")
+    print("fuel factor")
+    print("or exit")
+    choice = input("1, 2, 3, 4, 5, 6, 7, 8, 9: ")
 
     if choice == '1':
         question = input("Enter problem to find the derivative of: ")
@@ -39,7 +47,8 @@ while True:
         
         math_expression = sympify(question)
         derivative_result = diff(math_expression, x)
-        print("the derivative is:", derivative_result)
+        print("the derivative is: ")
+        pprint(derivative_result)
 
     
     elif choice == '2':
@@ -96,9 +105,9 @@ while True:
         print("3. solve right angle triangle ")
         print("4. trig function calculator")
         print("5. descent rate calculator")
-        print("6. Vref speed calculator")
         
-        trig_choice = input("choose 1-6: ")
+        
+        trig_choice = input("choose 1-5: ")
 
         if trig_choice == '1':
             degrees = float(input("enter degrees: "))
@@ -139,14 +148,6 @@ while True:
             print(f"Descent rate for {groundspeed} knots = {descent_rate:.1f} ft/min")
             time.sleep(3)
 
-        elif trig_choice == '6':
-            print("Vref calculator")
-            stallspeed = float(input("enter your stall speed: "))
-            headwind = float(input("enter the headwind: "))
-            gust = float(input("What is the gust factor: "))
-            result = 1.3 * stallspeed + (headwind / 2) + gust
-            print("your vref speed is: ", result)
-            time.sleep(3)
 
 
 
@@ -180,8 +181,31 @@ while True:
 
 
     elif choice == '7':
-        print("bye")
-    time.sleep(3)
-    print("this isnt a virus") #there is a issue here
-    time.sleep(3)
-    break
+            print("Vref calculator")
+            stallspeed = float(input("enter your stall speed: "))
+            headwind = float(input("enter the headwind: "))
+            gust = float(input("What is the gust factor: "))
+            result = 1.3 * stallspeed + (headwind / 2) + gust
+            print("your vref speed is: ", result)
+            time.sleep(3)
+
+
+
+    elif choice == '8':
+        print("simbrief fuel factor (P00 till P80)")
+        distance = float(input("enter your flight distance: "))
+
+
+        if distance < 500:
+            pxx = "P20-P30"
+        elif  distance < 1500:
+                pxx = "P30-P50"
+        else: pxx = "P50-P80"
+
+        print(f"for {distance} NM flight use, {pxx}")
+        time.sleep(7)
+
+    elif choice == '9':
+        print("bye ill add more later")
+        time.sleep(4)
+        break
